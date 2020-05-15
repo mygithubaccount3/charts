@@ -8,18 +8,6 @@ export function closeForm() {
 	document.getElementById('overlay').style.display = 'none';
 }
 
-export function setInitialDates() {
-		//console.log(document.getElementById('startDate').value)
-		let date = new Date();
-		//document.getElementById('startDate').setAttribute('value', `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() + 1 < 10 ? '0' + (date.getDate() + 1) : date.getDate() + 1}`)
-		
-		//console.log(date.getMonth() + 1)
-		//date.setMonth(date.getMonth() + 7)
-		
-		
-		//document.getElementById('endDate').setAttribute('value', `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }-${date.getDate() + 1 < 10 ? '0' + (date.getDate() + 1) : date.getDate() + 1}`)
-	}
-
 export function parseDate(date) {
 	const arr = date.split('-')
 	return new Date(arr[0], arr[1] - 1, arr[2]);
@@ -31,7 +19,7 @@ export function diff(start, end) {
 
 function secondsDiff(d1, d2) {
 	let millisecondDiff = d2 - d1;
-	let secDiff = Math.floor((d2 - d1) / 1000);
+	let secDiff = Math.floor((millisecondDiff) / 1000);
 	return secDiff;
 }
 

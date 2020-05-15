@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Header({el, days, len}) {
+function Header({el, days, dayWidth}) {
 	
 	return (
-			<div className="gantt__row gantt__row--months" style={{gridTemplateColumns: `11% repeat(${days}, ${len})`}}>
+			<div className="gantt__row gantt__row--months" style={{gridTemplateColumns: `11% repeat(${days}, ${dayWidth})`}}>
 	            <div className="gantt__row-first"></div>
 	            {el}
 	            

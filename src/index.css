@@ -10,10 +10,7 @@ body {
 }
 
 .content {
-	/*background-color: #0a3444;*/
 	color: #0a3444;
-	/*display: none;*/
-	/*display: grid;*/
 }
 
 .task {
@@ -49,11 +46,6 @@ body {
 
 .taskInfo__start {
     font-weight: bold
-}
-
-.App {
-	/*display: grid;
-	grid-template-columns: repeat(365, 0.274%);*/
 }
 
 .gantt__row {
@@ -254,4 +246,10 @@ input {
     left: 40%;
     right: 40%;
     background-color: aliceblue;
+}
+
+button[type='submit'] {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }

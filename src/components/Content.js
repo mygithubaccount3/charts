@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task.js';
 
-function Content({len, days, monStart, monEnd, data}) {
+function Content({dayWidth, days, monStart, monEnd, data}) {
 	const elements = data.map((el, i, arr) => <Task monStart={monStart}
 													monEnd={monEnd}
 													name={el.name}
@@ -9,7 +9,7 @@ function Content({len, days, monStart, monEnd, data}) {
 													end={el.end}
 													key={i}
 													days={days}
-													len={len}/>
+													dayWidth={dayWidth}/>
 							)
 
 	return (

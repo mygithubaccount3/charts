@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {parseDate, diff} from '../helpers.js'
 
-function Task({len, days, monStart, monEnd, name, start, end}) {
+function Task({dayWidth, days, monStart, monEnd, name, start, end}) {
 	const colors = ['#dfceff', '#c4dcff', '#fec4ff', '#c4f4ff', '#c8ffc4', '#feffc4', '#ffc4c4', '#304c8029', '#8a5858b0', '#10bdb5b0']
 
 	let startGrid = 0;
@@ -38,7 +38,7 @@ function Task({len, days, monStart, monEnd, name, start, end}) {
 	
 	return(
 		<Fragment>
-			<div className='task' style={{gridTemplateColumns: `11% repeat(${days}, ${len})`}}>
+			<div className='task' style={{gridTemplateColumns: `11% repeat(${days}, ${dayWidth})`}}>
 				<div className='taskInfo'>
 					<div className='taskInfo__name'>{name}</div>
 					<div className='taskInfo__duration'>{diff(parseDate(start), parseDate(end))} day(s)</div>
