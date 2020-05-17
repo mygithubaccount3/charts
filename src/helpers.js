@@ -40,3 +40,9 @@ export function daysDiff(d1, d2) {
 	let daysDiff = Math.floor(hours / 24);
 	return daysDiff;
 }
+
+export function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}

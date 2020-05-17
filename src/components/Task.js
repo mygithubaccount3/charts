@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {parseDate, diff} from '../helpers.js'
+import {parseDate, diff, getRandomIntInclusive} from '../helpers.js'
 
 function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) {
 	const colors = ['#dfceff', '#c4dcff', '#fec4ff', '#c4f4ff', '#c8ffc4', '#feffc4', '#ffc4c4', '#304c8029', '#8a5858b0', '#10bdb5b0']
@@ -15,11 +15,11 @@ function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) 
 			startGrid = 2;
 			const vis = diff(parseDate(`2020-${monStart}-01`), parseDate(end))
 			endGrid = startGrid + (1 + (vis));
-			display = 'flex';
+			display = 'block';
 		} else if(parseDate(end).getMonth() + 1 > monEnd) {
 			startGrid = 2;
 			endGrid = days;
-			display = 'flex';
+			display = 'block';
 		}
 		
 	} else if (parseDate(start).getMonth() + 1 >= monStart && parseDate(start).getMonth() + 1 <= monEnd) {
@@ -27,10 +27,10 @@ function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) 
 
 		if (parseDate(end).getMonth() + 1 <= monEnd) {
 			endGrid = startGrid + diff(parseDate(start), parseDate(end));
-			display = 'flex';
+			display = 'block';
 		} else if(parseDate(end).getMonth() + 1 > monEnd) {
 			endGrid = days;
-			display = 'flex';
+			display = 'block';
 		}
 	} else if (parseDate(start).getMonth() + 1 > monEnd) {
 		display = 'none';
@@ -50,7 +50,7 @@ function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) 
 		} else {
 				for (let i = 0; i < taskElements.length; i++) {
 					taskElements[i].children[0].style.display = 'block';
-					taskElements[i].setAttribute('style', `grid-template-columns: 11% repeat(${days}, ${dayWidth});margin-top: 0;margin-bottom: 0`)
+					taskElements[i].setAttribute('style', `grid-template-columns: 11% repeat(${days}, ${dayWidth})`)
 				}
 			}
 		}
@@ -65,14 +65,16 @@ function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) 
 	
 	return(
 		<Fragment>
-			<div className='task' id='task'>
-				<div className='taskInfo'>
-					<div className='taskInfo__name'>{name}</div>
-					<div className='taskInfo__duration'>{diff(parseDate(start), parseDate(end))} day(s)</div>
-					<span className='taskInfo__start'>{start}</span> - <span className='taskInfo__end'>{end}</span>
+			<div className='task' id={`task${getRandomIntInclusive(0, 10000)}`}>
+				<div className='task__info'>
+					<div className='task__name'>{name}</div>
+					<div className='task__duration'>{diff(parseDate(start), parseDate(end))} day(s)</div>
+					<span className='task__start'>{start}</span> - <span className='taskInfo__end'>{end}</span>
 				</div>
-				<div className='taskChart' style={{gridArea: `1/${startGrid}/2/${endGrid}`, display: display}}>
-					<div style={{backgroundColor: `${colors[Math.floor(Math.random() * 10)]}`}}></div>
+				<div className='task__chart'
+					 style={{gridArea: `1/${startGrid}/2/${endGrid}`,
+					 display: display,
+					 backgroundColor: `${colors[Math.floor(Math.random() * 10)]}`}}>
 				</div>
 			</div>
 		</Fragment>

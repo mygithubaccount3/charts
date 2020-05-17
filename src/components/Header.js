@@ -6,10 +6,10 @@ function Header({el, days, dayWidth, isOnMobile}) {
 		function func(isOnMobile) {
 			if (isOnMobile.matches) {
 				const dayW = ((11 / days) + Number(dayWidth.slice(0, dayWidth.length - 1))) + "%";
-				document.getElementById('month').style.gridTemplateColumns = `repeat(${days}, ${dayW})`;
+				document.getElementById('months').style.gridTemplateColumns = `repeat(${days}, ${dayW})`;
 				document.getElementById('blankCell').style.display = 'none';
 			} else {
-				document.getElementById('month').style.gridTemplateColumns = `11% repeat(${days}, ${dayWidth})`;
+				document.getElementById('months').style.gridTemplateColumns = `11% repeat(${days}, ${dayWidth})`;
 				document.getElementById('blankCell').style.display = 'block';
 			}
 		}
@@ -18,14 +18,14 @@ function Header({el, days, dayWidth, isOnMobile}) {
 
 		return function cleanup() {
 			isOnMobile.removeListener(func)
-		}	
+		}
 	}, [isOnMobile, dayWidth, days])
 	
 	return (
-			<div className="gantt__row gantt__row--months" id='month'>
-	            <div className="gantt__row-first" id='blankCell'></div>
-	            {el}
-        	</div>
+			<div id='months'>
+				<div id='blankCell'></div>
+				{el}
+			</div>
 		)
 }
 

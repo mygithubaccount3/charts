@@ -9,20 +9,25 @@ body {
     text-align: center;
 }
 
-.content {
-	color: #0a3444;
-}
-
 .task {
     display: grid;
 }
 
-.taskChart {
-	align-items: center;
+.task__info {
+	border-right: 1px dashed #0a3444;
+	border-bottom: 1px dashed #0a3444;
 }
 
-.taskChart > div {
-	width: 100%;
+.task__name {
+    overflow-wrap: break-word;
+}
+
+.task__start {
+    font-weight: bold
+}
+
+.task__chart {
+	align-self: center;
     height: 50px;
     border-radius: 25px;
     animation: fadeIn 1s linear;
@@ -39,42 +44,12 @@ body {
     }
 }
 
-.taskInfo {
-	border-right: 1px dashed #0a3444;
-	border-bottom: 1px dashed #0a3444;
-}
-
-.taskInfo__start {
-    font-weight: bold
-}
-
-.taskInfo__name {
-    overflow-wrap: break-word;
-}
-
-.gantt__row {
-    display: grid;
-    background-color: #fff;
-}
-
 .gantt__row:nth-child(3) .gantt__row-bars {
 	border-top: 0;
 }
 
-.gantt__row-first {
-    border-top: 0;
-}
-
 .gantt__row:nth-child(odd) {
     background-color: #f5f5f5;    
-}
-
-.gantt__row-first {
-    background-color: #f5f5f5;
-}
-
-.gantt__row-first {
-    border-width: 1px 1px 0 0;
 }
 
 .gantt__row--lines {
@@ -103,38 +78,12 @@ gantt__row--lines span.marker {
     height: 100%;
 }
 
-.gantt__row--months {
-    color: #fff;
-    background-color: #0a3444 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);      
-}
-
-.gantt__row-first {
-    border-top: 0 !important;
-    background-color: #0a3444 !important;
-}
-
 span {
     text-align: center;
     font-size: 13px;
     align-self: center;
     font-weight: bold;
     padding: 20px 0;
-}
-
-.gantt__row-first {
-    background-color: #fff;
-    border-width: 1px 0 0 0;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-style: solid;
-    padding: 15px 0;
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.gantt__row-first {
-    border-right: 1px dashed white;
 }
 
 .gantt__row-bars {
@@ -180,14 +129,12 @@ gantt__row-bars:before {
 gantt__row-bars:after {
     right: 0;
 }
-.gantt__row--months span {
-    border-right: 1px solid white;
-}
+
 input {
     grid-area: 2/2/3/100;
 }
 
-.menu {
+#navbar {
     margin: auto;
     display: flex;
     width: 25%;
@@ -196,18 +143,12 @@ input {
     justify-content: space-between;
 }
 
-.menu > a {
+#navbar > a {
     color: #0a3444;
     text-decoration: none;
 }
 
-.chart {
-    display: inline-block;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.period {
+#period {
     display: inline-flex;
     justify-content: space-around;
     margin: auto;
@@ -246,4 +187,24 @@ button[type='submit'] {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+#blankCell {
+    background-color: #0a3444;
+	border: 1px solid #0a3444;
+	border-right: 1px dashed white;
+    padding: 15px 0;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#months {
+	display: grid;
+	color: #fff;
+	background-color: #0a3444;
+}
+
+#months span {
+    border-right: 1px solid white;
 }

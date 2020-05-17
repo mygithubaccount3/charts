@@ -95,14 +95,14 @@ function App() {
     		<input type='text' id='taskEnd' name='end'/>
     		<button type='submit'>Add</button>
     	</form>
-	    <div className='period' id="period">
+	    <div id="period">
 	    	<label htmlFor='startDate'>Since:</label>
 	    	<input type='date' id='startDate' name='startDate' value={since} onChange={sendValue}/>
 	    	<label htmlFor='endDate'>Until:</label>
 	    	<input type='date' id='endDate' name='endDate' value={until} onChange={sendValue} />
 	    </div>
 	    <button onClick={openForm}>Add new task</button>
-    	<div className='chart'>
+    	<div id='chart'>
       		<Header el={els} days={days} dayWidth={dayWidth} isOnMobile={maxWidth767}/>
         	<Content dayWidth={dayWidth} days={days} monStart={since.slice(5, 7)} monEnd={until.slice(5, 7)} data={data} isOnMobile={maxWidth767}/>
       	</div>

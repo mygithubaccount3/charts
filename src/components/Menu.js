@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Menu(props) {
+function Menu() {
 	return (
-			<div className='menu'>
-				<a href='#gant'>Gantt Diagramm</a>
-				<a href='#gant'>Gantt Diagramm</a>
+			<div id='navbar'>
+				<a href='#gantt'>Gantt Diagramm</a>
+				<a href='#network'>Network Chart</a>
 			</div>
 		)
 }

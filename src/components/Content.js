@@ -14,7 +14,7 @@ function Content({dayWidth, days, monStart, monEnd, data, isOnMobile}) {
 							)
 
 	return (
-			<div className='content'>
+			<div id='content'>
 				{elements}
 			</div>
 		)
