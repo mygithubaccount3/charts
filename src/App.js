@@ -21,8 +21,16 @@ function App() {
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	const filteredMonCount = ((until.slice(0, 2) - since.slice(0, 2)) * 12) + (until.slice(5, 7) - since.slice(5, 7)) + 1;
 	let days = 0;
+	let maxWidth767 = window.matchMedia("(max-width: 767px)")
+
+	function func(maxWidth767) {
+		maxWidth767.matches ? document.getElementById('period').style.width = '80%' : document.getElementById('period').style.width = '40%';
+	}
 
 	useEffect(() => {
+		func(maxWidth767);
+		maxWidth767.addListener(func);
+
 		let date = new Date();
 		document.getElementById('startDate').setAttribute('min', `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`);
 
@@ -32,17 +40,20 @@ function App() {
 		date = new Date(since);
 		date.setDate(date.getDate() + 1);
 		document.getElementById('endDate').setAttribute('min', `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 }-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`);
-		/*setUntil(document.getElementById('endDate').getAttribute('min'))*/
 		
 		date.setDate(date.getDate() - 1);
 		date.setMonth(date.getMonth() + 6);
 		document.getElementById('endDate').setAttribute('max', `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`);
-	}, [since])
+
+		return function cleanup() {
+			maxWidth767.removeListener(func)
+		}
+	}, [maxWidth767, since])
 
 	for(let i = 0; i < filteredMonCount; i++) {
 		days += new Date(2020, Number(since.slice(5, 7)) - 1 + i, 0).getDate()
 	}
-	console.log(days)
+	
 	let els = [];
 	let colForMonth = 2;
 	const dayWidth = 89 / days + '%'
@@ -84,7 +95,7 @@ function App() {
     		<input type='text' id='taskEnd' name='end'/>
     		<button type='submit'>Add</button>
     	</form>
-	    <div className='period'>
+	    <div className='period' id="period">
 	    	<label htmlFor='startDate'>Since:</label>
 	    	<input type='date' id='startDate' name='startDate' value={since} onChange={sendValue}/>
 	    	<label htmlFor='endDate'>Until:</label>
@@ -92,8 +103,8 @@ function App() {
 	    </div>
 	    <button onClick={openForm}>Add new task</button>
     	<div className='chart'>
-      		<Header el={els} days={days} dayWidth={dayWidth}/>
-        	<Content dayWidth={dayWidth} days={days} monStart={since.slice(5, 7)} monEnd={until.slice(5, 7)} data={data}/>
+      		<Header el={els} days={days} dayWidth={dayWidth} isOnMobile={maxWidth767}/>
+        	<Content dayWidth={dayWidth} days={days} monStart={since.slice(5, 7)} monEnd={until.slice(5, 7)} data={data} isOnMobile={maxWidth767}/>
       	</div>
     </div>
   );

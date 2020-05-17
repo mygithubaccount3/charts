@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {parseDate, diff} from '../helpers.js'
 
-function Task({dayWidth, days, monStart, monEnd, name, start, end}) {
+function Task({dayWidth, days, monStart, monEnd, name, start, end, isOnMobile}) {
 	const colors = ['#dfceff', '#c4dcff', '#fec4ff', '#c4f4ff', '#c8ffc4', '#feffc4', '#ffc4c4', '#304c8029', '#8a5858b0', '#10bdb5b0']
 
 	let startGrid = 0;
@@ -35,10 +35,37 @@ function Task({dayWidth, days, monStart, monEnd, name, start, end}) {
 	} else if (parseDate(start).getMonth() + 1 > monEnd) {
 		display = 'none';
 	}
+
+	useEffect(() => {
+		function func(isOnMobile) {
+		const taskElements = document.getElementsByClassName('task');
+
+		if (isOnMobile.matches) {
+			const dayW = ((11 / days) + Number(dayWidth.slice(0, dayWidth.length - 1))) + "%";
+			
+			for (let i = 0; i < taskElements.length; i++) {
+				taskElements[i].children[0].style.display = 'none';
+				taskElements[i].setAttribute('style', `grid-template-columns: repeat(${days}, ${dayW});margin-top: 11px;margin-bottom: 11px`)
+			}
+		} else {
+				for (let i = 0; i < taskElements.length; i++) {
+					taskElements[i].children[0].style.display = 'block';
+					taskElements[i].setAttribute('style', `grid-template-columns: 11% repeat(${days}, ${dayWidth});margin-top: 0;margin-bottom: 0`)
+				}
+			}
+		}
+
+		func(isOnMobile)
+		isOnMobile.addListener(func);
+
+		return function cleanup() {
+			isOnMobile.removeListener(func)
+		}	
+	}, [isOnMobile, dayWidth, days])
 	
 	return(
 		<Fragment>
-			<div className='task' style={{gridTemplateColumns: `11% repeat(${days}, ${dayWidth})`}}>
+			<div className='task' id='task'>
 				<div className='taskInfo'>
 					<div className='taskInfo__name'>{name}</div>
 					<div className='taskInfo__duration'>{diff(parseDate(start), parseDate(end))} day(s)</div>
