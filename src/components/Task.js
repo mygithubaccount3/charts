@@ -1,38 +1,38 @@
 import React, { Fragment, useEffect } from 'react';
 import { parseDate, diff, getRandomIntInclusive } from '../helpers.js'
 
-function Task({ dayWidth, days, monStart, monEnd, name, start, end, isOnMobile }) {
+function Task({ dayWidth, days, dateStart, dateEnd, name, start, end, isOnMobile, projId, taskId, userEmail, userToken, deleteTask }) {
     const colors = ['#dfceff', '#c4dcff', '#fec4ff', '#c4f4ff', '#c8ffc4', '#feffc4', '#ffc4c4', '#304c8029', '#8a5858b0', '#10bdb5b0']
 
     let startGrid = 0;
     let endGrid = 0;
     let display;
 
-    if (parseDate(start).getMonth() + 1 < monStart) {
-        if (parseDate(end).getMonth() + 1 < monStart) {
+    if (parseDate(start).getMonth() + 1 < Number(dateStart.slice(5, 7))) {
+        if (parseDate(end).getMonth() + 1 < Number(dateStart.slice(5, 7))) {
             display = 'none';
-        } else if (parseDate(end).getMonth() + 1 >= monStart && parseDate(end).getMonth() + 1 <= monEnd) {
+        } else if (parseDate(end).getMonth() + 1 >= Number(dateStart.slice(5, 7)) && parseDate(end).getMonth() + 1 <= Number(dateEnd.slice(5, 7))) {
             startGrid = 2;
-            const vis = diff(parseDate(`2020-${monStart}-01`), parseDate(end))
+            const vis = diff(parseDate(dateStart), parseDate(end))//`2020-${monStart}-01`
             endGrid = startGrid + (1 + (vis));
             display = 'block';
-        } else if (parseDate(end).getMonth() + 1 > monEnd) {
+        } else if (parseDate(end).getMonth() + 1 > Number(dateEnd.slice(5, 7))) {
             startGrid = 2;
             endGrid = days;
             display = 'block';
         }
 
-    } else if (parseDate(start).getMonth() + 1 >= monStart && parseDate(start).getMonth() + 1 <= monEnd) {
-        startGrid = diff(parseDate(`2020-${monStart}-01`), parseDate(start)) + 2;
+    } else if (parseDate(start).getMonth() + 1 >= Number(dateStart.slice(5, 7)) && parseDate(start).getMonth() + 1 <= Number(dateEnd.slice(5, 7))) {
+        startGrid = diff(parseDate(dateStart), parseDate(start)) + 2;
 
-        if (parseDate(end).getMonth() + 1 <= monEnd) {
+        if (parseDate(end).getMonth() + 1 <= Number(dateEnd.slice(5, 7))) {
             endGrid = startGrid + diff(parseDate(start), parseDate(end));
             display = 'block';
-        } else if (parseDate(end).getMonth() + 1 > monEnd) {
+        } else if (parseDate(end).getMonth() + 1 > Number(dateEnd.slice(5, 7))) {
             endGrid = days;
             display = 'block';
         }
-    } else if (parseDate(start).getMonth() + 1 > monEnd) {
+    } else if (parseDate(start).getMonth() + 1 > Number(dateEnd.slice(5, 7))) {
         display = 'none';
     }
 
@@ -70,6 +70,8 @@ function Task({ dayWidth, days, monStart, monEnd, name, start, end, isOnMobile }
                     <div className='task__name'>{name}</div>
                     <div className='task__duration'>{diff(parseDate(start), parseDate(end))} day(s)</div>
                     <span className='task__start'>{start}</span> - <span className='taskInfo__end'>{end}</span>
+                    <button>Edit</button>
+                    <button onClick={deleteTask(taskId, projId)}>Delete</button>
                 </div>
                 <div className='task__chart'
                     style={{

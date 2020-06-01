@@ -96,7 +96,7 @@ span {
     z-index: 2;
 }
 
-.addTaskForm {
+.addTaskForm, #newProjectForm {
     display: none;
     flex-direction: column;
     width: 20%;
