@@ -25,6 +25,12 @@ body {
     &__info {
         border-right: 1px dashed #0a3444;
         border-bottom: 1px dashed #0a3444;
+        
+        & > button {
+            background-color: #ff2f59ba;
+            border: 0;
+            border-radius: 4px;
+        }
     }
 
     &__name {
@@ -60,20 +66,6 @@ span {
     align-self: center;
     font-weight: bold;
     padding: 20px 0;
-}
-
-#navbar {
-    margin: auto;
-    display: flex;
-    width: 25%;
-    min-width: 300px;
-    margin-bottom: 20px;
-    justify-content: space-between;
-
-    & > a {
-        color: #0a3444;
-        text-decoration: none;
-    }
 }
 
 #period {
@@ -131,8 +123,17 @@ button[type='submit'] {
     display: grid;
     color: #fff;
     background-color: #0a3444;
+    overflow: hidden;
 
     & > span {
         border-right: 1px solid white;
+        
+        &:first-of-type {
+            overflow: hidden;
+        }
+        
+        &:last-of-type {
+            border-right: none;
+        }
     }
 }
